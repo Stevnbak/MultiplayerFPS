@@ -1,0 +1,65 @@
+{
+  "name": "com.unity.remote-config-runtime",
+  "displayName": "Remote Config Runtime",
+  "version": "3.1.3",
+  "unity": "2019.4",
+  "_upm": {
+    "changelog": "- using ENABLE_CLOUD_SERVICES_ANALYTICS flag for platforms using Analytics within 2.x namespace"
+  },
+  "description": "Remote Config is a cloud service that lets you tune and customize your app over the air without requiring an update to your game.  This package is intended to be inherited as a dependency, and should not be directly installed, by end users. Unity Developers that want to implement Unity Remote Config in their game/application, should use the Remote Config Package `com.unity.remote-config` rather than this package directly.",
+  "dependencies": {
+    "com.unity.nuget.newtonsoft-json": "3.0.2",
+    "com.unity.modules.unitywebrequest": "1.0.0",
+    "com.unity.modules.unityanalytics": "1.0.0",
+    "com.unity.services.core": "1.4.0",
+    "com.unity.services.authentication": "2.0.0"
+  },
+  "keywords": [
+    "remote",
+    "config",
+    "configuration",
+    "settings",
+    "remote settings",
+    "remote config",
+    "firebase",
+    "staged rollouts",
+    "feature flagging",
+    "roll-out",
+    "adapt",
+    "tune",
+    "tailor",
+    "test",
+    "experiment",
+    "experimentation",
+    "app update",
+    "target",
+    "targeting",
+    "segment",
+    "segmentation",
+    "segmenting",
+    "override",
+    "rules",
+    "variants",
+    "variation",
+    "parameter",
+    "conditions",
+    "conditional",
+    "continuous delivery",
+    "deploy"
+  ],
+  "upmCi": {
+    "footprint": "0ecaebb60d2b2dfcca8f1e27a2a12c3fd747c71a"
+  },
+  "repository": {
+    "url": "https://github.cds.internal.unity3d.com/unity/com.unity.remote-config-runtime.git",
+    "type": "git",
+    "revision": "91b2d12b27935e9c9b1a488069ac9dc6945b8bfc"
+  },
+  "samples": [
+    {
+      "displayName": "Example Sample",
+      "description": "This sample example C# file can be used to quickly utilise usage of Remote Config APIs. For more comprehensive code integration, visit https://docs.unity3d.com/Packages/com.unity.remote-config@latest",
+      "path": "Samples~/Example"
+    }
+  ]
+}
