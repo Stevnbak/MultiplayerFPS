@@ -71,6 +71,7 @@ namespace StarterAssets
 		private CharacterController _controller;
 		private StarterAssetsInputs _input;
 		private GameObject _mainCamera;
+		private PlayerNetworking _playerNetworking;
 
 		private const float _threshold = 0.01f;
 
@@ -99,6 +100,7 @@ namespace StarterAssets
 		{
 			_controller = GetComponent<CharacterController>();
 			_input = GetComponent<StarterAssetsInputs>();
+			_playerNetworking = GetComponent<PlayerNetworking>();
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 			_playerInput = GetComponent<PlayerInput>();
 #else
@@ -112,14 +114,14 @@ namespace StarterAssets
 
 		private void Update()
 		{
-			JumpAndGravity();
+            JumpAndGravity();
 			GroundedCheck();
 			Move();
 		}
 
 		private void LateUpdate()
 		{
-			CameraRotation();
+            CameraRotation();
 		}
 
 		private void GroundedCheck()

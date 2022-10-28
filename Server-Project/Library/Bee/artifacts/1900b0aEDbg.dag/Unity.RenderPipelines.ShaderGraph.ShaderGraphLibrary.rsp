@@ -101,6 +101,7 @@
 -define:NETSTANDARD
 -define:NETSTANDARD2_1
 -define:ENABLE_PROFILER
+-define:UNITY_SERVER
 -define:DEBUG
 -define:TRACE
 -define:UNITY_ASSERTIONS
@@ -121,17 +122,16 @@
 -define:ENABLE_LEGACY_INPUT_MANAGER
 -define:CSHARP_7_OR_LATER
 -define:CSHARP_7_3_OR_NEWER
--r:"C:/Current-Unity-Project/MultiplayerFPS-Server/Library/PackageCache/com.unity.burst@1.7.3/Unity.Burst.CodeGen/Unity.Burst.Cecil.dll"
--r:"C:/Current-Unity-Project/MultiplayerFPS-Server/Library/PackageCache/com.unity.burst@1.7.3/Unity.Burst.CodeGen/Unity.Burst.Cecil.Mdb.dll"
--r:"C:/Current-Unity-Project/MultiplayerFPS-Server/Library/PackageCache/com.unity.burst@1.7.3/Unity.Burst.CodeGen/Unity.Burst.Cecil.Pdb.dll"
--r:"C:/Current-Unity-Project/MultiplayerFPS-Server/Library/PackageCache/com.unity.burst@1.7.3/Unity.Burst.CodeGen/Unity.Burst.Cecil.Rocks.dll"
--r:"C:/Current-Unity-Project/MultiplayerFPS-Server/Library/PackageCache/com.unity.burst@1.7.3/Unity.Burst.Unsafe.dll"
--r:"C:/Current-Unity-Project/MultiplayerFPS-Server/Library/PackageCache/com.unity.ext.nunit@2.0.3/net40/unity-custom/nunit.framework.dll"
--r:"C:/Current-Unity-Project/MultiplayerFPS-Server/Library/PackageCache/com.unity.nuget.newtonsoft-json@3.0.2/Runtime/Newtonsoft.Json.dll"
--r:"C:/Current-Unity-Project/MultiplayerFPS-Server/Library/PackageCache/com.unity.visualscripting@1.7.8/Editor/VisualScripting.Core/Dependencies/DotNetZip/Unity.VisualScripting.IonicZip.dll"
--r:"C:/Current-Unity-Project/MultiplayerFPS-Server/Library/PackageCache/com.unity.visualscripting@1.7.8/Editor/VisualScripting.Core/Dependencies/YamlDotNet/Unity.VisualScripting.YamlDotNet.dll"
--r:"C:/Current-Unity-Project/MultiplayerFPS-Server/Library/PackageCache/com.unity.visualscripting@1.7.8/Editor/VisualScripting.Core/EditorAssetResources/Unity.VisualScripting.TextureAssets.dll"
--r:"C:/Current-Unity-Project/MultiplayerFPS-Server/Library/PackageCache/com.unity.visualscripting@1.7.8/Runtime/VisualScripting.Flow/Dependencies/NCalc/Unity.VisualScripting.Antlr3.Runtime.dll"
+-r:"C:/Current-Unity-Project/MultiplayerFPS/Server-Project/Library/PackageCache/com.unity.burst@1.7.3/Unity.Burst.CodeGen/Unity.Burst.Cecil.dll"
+-r:"C:/Current-Unity-Project/MultiplayerFPS/Server-Project/Library/PackageCache/com.unity.burst@1.7.3/Unity.Burst.CodeGen/Unity.Burst.Cecil.Mdb.dll"
+-r:"C:/Current-Unity-Project/MultiplayerFPS/Server-Project/Library/PackageCache/com.unity.burst@1.7.3/Unity.Burst.CodeGen/Unity.Burst.Cecil.Pdb.dll"
+-r:"C:/Current-Unity-Project/MultiplayerFPS/Server-Project/Library/PackageCache/com.unity.burst@1.7.3/Unity.Burst.CodeGen/Unity.Burst.Cecil.Rocks.dll"
+-r:"C:/Current-Unity-Project/MultiplayerFPS/Server-Project/Library/PackageCache/com.unity.burst@1.7.3/Unity.Burst.Unsafe.dll"
+-r:"C:/Current-Unity-Project/MultiplayerFPS/Server-Project/Library/PackageCache/com.unity.ext.nunit@2.0.3/net40/unity-custom/nunit.framework.dll"
+-r:"C:/Current-Unity-Project/MultiplayerFPS/Server-Project/Library/PackageCache/com.unity.visualscripting@1.7.8/Editor/VisualScripting.Core/Dependencies/DotNetZip/Unity.VisualScripting.IonicZip.dll"
+-r:"C:/Current-Unity-Project/MultiplayerFPS/Server-Project/Library/PackageCache/com.unity.visualscripting@1.7.8/Editor/VisualScripting.Core/Dependencies/YamlDotNet/Unity.VisualScripting.YamlDotNet.dll"
+-r:"C:/Current-Unity-Project/MultiplayerFPS/Server-Project/Library/PackageCache/com.unity.visualscripting@1.7.8/Editor/VisualScripting.Core/EditorAssetResources/Unity.VisualScripting.TextureAssets.dll"
+-r:"C:/Current-Unity-Project/MultiplayerFPS/Server-Project/Library/PackageCache/com.unity.visualscripting@1.7.8/Runtime/VisualScripting.Flow/Dependencies/NCalc/Unity.VisualScripting.Antlr3.Runtime.dll"
 -r:"C:/Program Files/Unity/Hub/Editor/2021.3.11f1/Editor/Data/Managed/UnityEditor.Graphs.dll"
 -r:"C:/Program Files/Unity/Hub/Editor/2021.3.11f1/Editor/Data/Managed/UnityEngine/UnityEditor.CoreModule.dll"
 -r:"C:/Program Files/Unity/Hub/Editor/2021.3.11f1/Editor/Data/Managed/UnityEngine/UnityEditor.DeviceSimulatorModule.dll"
@@ -343,7 +343,6 @@
 -r:"C:/Program Files/Unity/Hub/Editor/2021.3.11f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/UnityEditor.UI.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/UnityEngine.UI.ref.dll"
--analyzer:"Library/PackageCache/com.unity.ext.nunit@2.0.3/net40/unity-custom/nunit.framework.dll"
 "Library/PackageCache/com.unity.shadergraph@12.1.7/ShaderGraphLibrary/DummyShaderGraphLibrary.cs"
 -langversion:9.0
 

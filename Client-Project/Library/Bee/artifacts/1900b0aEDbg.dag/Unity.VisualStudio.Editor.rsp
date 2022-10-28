@@ -120,8 +120,8 @@
 -define:UNITY_POST_PROCESSING_STACK_V2
 -define:CSHARP_7_OR_LATER
 -define:CSHARP_7_3_OR_NEWER
--r:"C:/Current-Unity-Project/MultiplayerFPS/Library/PackageCache/com.unity.ext.nunit@2.0.3/net40/unity-custom/nunit.framework.dll"
--r:"C:/Current-Unity-Project/MultiplayerFPS/Library/PackageCache/com.unity.nuget.newtonsoft-json@3.0.2/Runtime/Newtonsoft.Json.dll"
+-r:"C:/Current-Unity-Project/MultiplayerFPS/Client-Project/Library/PackageCache/com.unity.ext.nunit@2.0.3/net40/unity-custom/nunit.framework.dll"
+-r:"C:/Current-Unity-Project/MultiplayerFPS/Client-Project/Library/PackageCache/com.unity.nuget.newtonsoft-json@3.0.2/Runtime/Newtonsoft.Json.dll"
 -r:"C:/Program Files/Unity/Hub/Editor/2021.3.11f1/Editor/Data/Managed/UnityEditor.Graphs.dll"
 -r:"C:/Program Files/Unity/Hub/Editor/2021.3.11f1/Editor/Data/Managed/UnityEngine/UnityEditor.CoreModule.dll"
 -r:"C:/Program Files/Unity/Hub/Editor/2021.3.11f1/Editor/Data/Managed/UnityEngine/UnityEditor.DeviceSimulatorModule.dll"
@@ -339,7 +339,6 @@
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/UnityEditor.UI.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/UnityEngine.TestRunner.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/UnityEngine.UI.ref.dll"
--analyzer:"Library/PackageCache/com.unity.ext.nunit@2.0.3/net40/unity-custom/nunit.framework.dll"
 "Library/PackageCache/com.unity.ide.visualstudio@2.0.16/Editor/AssemblyInfo.cs"
 "Library/PackageCache/com.unity.ide.visualstudio@2.0.16/Editor/AsyncOperation.cs"
 "Library/PackageCache/com.unity.ide.visualstudio@2.0.16/Editor/Cli.cs"

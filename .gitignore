@@ -72,3 +72,10 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
 
+# Large files
+Server-Project/Library/PackageCache/com.unity.burst@1.7.3/.Runtime/libburst-llvm-12.dylib
+Server-Project/Library/PackageCache/com.unity.burst@1.7.3/.Runtime/hostmac/lld
+Client-Project/Library/PackageCache/com.unity.burst@1.7.3/.Runtime/libburst-llvm-12.dylib
+Client-Project/Library/PackageCache/com.unity.burst@1.7.3/.Runtime/hostmac/lld
+Client-Project/Library/PackageCache/com.unity.toolchain.win-x86_64-linux-x86_64@2.0.2/data~/payload.tar.7z
+Server-Project/Library/PackageCache/com.unity.toolchain.win-x86_64-linux-x86_64@2.0.2/data~/payload.tar.7z

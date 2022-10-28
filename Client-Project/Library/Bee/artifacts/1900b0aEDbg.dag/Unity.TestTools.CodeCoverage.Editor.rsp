@@ -125,8 +125,8 @@
 -define:TEST_FRAMEWORK_1_2_OR_NEWER
 -define:CSHARP_7_OR_LATER
 -define:CSHARP_7_3_OR_NEWER
--r:"C:/Current-Unity-Project/MultiplayerFPS/Library/PackageCache/com.unity.ext.nunit@2.0.3/net40/unity-custom/nunit.framework.dll"
--r:"C:/Current-Unity-Project/MultiplayerFPS/Library/PackageCache/com.unity.testtools.codecoverage@1.0.1/lib/ReportGenerator/ReportGeneratorMerged.dll"
+-r:"C:/Current-Unity-Project/MultiplayerFPS/Client-Project/Library/PackageCache/com.unity.ext.nunit@2.0.3/net40/unity-custom/nunit.framework.dll"
+-r:"C:/Current-Unity-Project/MultiplayerFPS/Client-Project/Library/PackageCache/com.unity.testtools.codecoverage@1.0.1/lib/ReportGenerator/ReportGeneratorMerged.dll"
 -r:"C:/Program Files/Unity/Hub/Editor/2021.3.11f1/Editor/Data/Managed/UnityEditor.Graphs.dll"
 -r:"C:/Program Files/Unity/Hub/Editor/2021.3.11f1/Editor/Data/Managed/UnityEngine/UnityEditor.CoreModule.dll"
 -r:"C:/Program Files/Unity/Hub/Editor/2021.3.11f1/Editor/Data/Managed/UnityEngine/UnityEditor.DeviceSimulatorModule.dll"
@@ -347,7 +347,6 @@
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/UnityEditor.UI.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/UnityEngine.TestRunner.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/UnityEngine.UI.ref.dll"
--analyzer:"Library/PackageCache/com.unity.ext.nunit@2.0.3/net40/unity-custom/nunit.framework.dll"
 "Library/PackageCache/com.unity.testtools.codecoverage@1.0.1/Editor/Analytics/CoverageAnalytics.cs"
 "Library/PackageCache/com.unity.testtools.codecoverage@1.0.1/Editor/Analytics/CoverageAnalyticsEnums.cs"
 "Library/PackageCache/com.unity.testtools.codecoverage@1.0.1/Editor/Analytics/CoverageAnalyticsEvent.cs"

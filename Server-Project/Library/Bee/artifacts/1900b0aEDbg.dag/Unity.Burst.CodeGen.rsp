@@ -98,6 +98,7 @@
 -define:NET_4_6
 -define:NET_UNITY_4_8
 -define:ENABLE_PROFILER
+-define:UNITY_SERVER
 -define:DEBUG
 -define:TRACE
 -define:UNITY_ASSERTIONS
@@ -118,10 +119,10 @@
 -define:ENABLE_LEGACY_INPUT_MANAGER
 -define:CSHARP_7_OR_LATER
 -define:CSHARP_7_3_OR_NEWER
--r:"C:/Current-Unity-Project/MultiplayerFPS-Server/Library/PackageCache/com.unity.burst@1.7.3/Unity.Burst.CodeGen/Unity.Burst.Cecil.dll"
--r:"C:/Current-Unity-Project/MultiplayerFPS-Server/Library/PackageCache/com.unity.burst@1.7.3/Unity.Burst.CodeGen/Unity.Burst.Cecil.Pdb.dll"
--r:"C:/Current-Unity-Project/MultiplayerFPS-Server/Library/PackageCache/com.unity.burst@1.7.3/Unity.Burst.CodeGen/Unity.Burst.Cecil.Rocks.dll"
--r:"C:/Current-Unity-Project/MultiplayerFPS-Server/Library/PackageCache/com.unity.ext.nunit@2.0.3/net40/unity-custom/nunit.framework.dll"
+-r:"C:/Current-Unity-Project/MultiplayerFPS/Server-Project/Library/PackageCache/com.unity.burst@1.7.3/Unity.Burst.CodeGen/Unity.Burst.Cecil.dll"
+-r:"C:/Current-Unity-Project/MultiplayerFPS/Server-Project/Library/PackageCache/com.unity.burst@1.7.3/Unity.Burst.CodeGen/Unity.Burst.Cecil.Pdb.dll"
+-r:"C:/Current-Unity-Project/MultiplayerFPS/Server-Project/Library/PackageCache/com.unity.burst@1.7.3/Unity.Burst.CodeGen/Unity.Burst.Cecil.Rocks.dll"
+-r:"C:/Current-Unity-Project/MultiplayerFPS/Server-Project/Library/PackageCache/com.unity.ext.nunit@2.0.3/net40/unity-custom/nunit.framework.dll"
 -r:"C:/Program Files/Unity/Hub/Editor/2021.3.11f1/Editor/Data/Managed/Unity.CompilationPipeline.Common.dll"
 -r:"C:/Program Files/Unity/Hub/Editor/2021.3.11f1/Editor/Data/Managed/UnityEditor.Graphs.dll"
 -r:"C:/Program Files/Unity/Hub/Editor/2021.3.11f1/Editor/Data/Managed/UnityEngine/UnityEditor.CoreModule.dll"
@@ -337,7 +338,6 @@
 -r:"C:/Program Files/Unity/Hub/Editor/2021.3.11f1/Editor/Data/UnityReferenceAssemblies/unity-4.8-api/System.Xml.dll"
 -r:"C:/Program Files/Unity/Hub/Editor/2021.3.11f1/Editor/Data/UnityReferenceAssemblies/unity-4.8-api/System.Xml.Linq.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/Unity.Burst.ref.dll"
--analyzer:"Library/PackageCache/com.unity.ext.nunit@2.0.3/net40/unity-custom/nunit.framework.dll"
 "Library/PackageCache/com.unity.burst@1.7.3/Unity.Burst.CodeGen/AssemblyResolver.cs"
 "Library/PackageCache/com.unity.burst@1.7.3/Unity.Burst.CodeGen/BurstILPostProcessor.cs"
 "Library/PackageCache/com.unity.burst@1.7.3/Unity.Burst.CodeGen/CecilExtensions.cs"
