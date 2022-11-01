@@ -12,10 +12,13 @@ public class PlayerNetworking : MonoBehaviour
 
     //Information
     [Header("Client Information")]
-    public string state;
     public ushort Id;
     public bool IsLocal;
     public string username;
+
+    [Header("Player Information")]
+    public string state;
+    public WeaponScript weapon;
 
     void FixedUpdate()  
     {
@@ -30,6 +33,6 @@ public class PlayerNetworking : MonoBehaviour
 
     private void OnDestroy()
     {
-        NetworkManager.playerList.Remove(Id);
+        NetworkManager.Singleton.playerList.Remove(Id);
     }
 }

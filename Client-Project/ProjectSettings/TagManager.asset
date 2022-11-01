@@ -9,13 +9,13 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - World
   - Water
   - UI
+  - Players
   - 
   - 
-  - Character
-  - Ground
+  - 
   - 
   - 
   - 

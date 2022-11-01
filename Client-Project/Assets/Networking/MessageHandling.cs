@@ -13,6 +13,7 @@ public enum MessageIds : ushort
     playerLeft,
     playerTransformUpdate,
     playerStatusUpdate,
+    weaponFire
 }
 
 public class MessageHandling : MonoBehaviour
@@ -31,7 +32,7 @@ public class MessageHandling : MonoBehaviour
     {
         ushort id = message.GetUShort();
         Debug.Log($"Player with id {id} left the game");
-        Destroy(NetworkManager.playerList[id].gameObject);
+        Destroy(NetworkManager.Singleton.playerList[id].gameObject);
     }
 
     //Get updated position (Not local)
@@ -39,14 +40,14 @@ public class MessageHandling : MonoBehaviour
     static void playerTransformUpdate(Message message)
     {
         ushort id = message.GetUShort();
-        if(!NetworkManager.playerList.ContainsKey(id))
+        if(!NetworkManager.Singleton.playerList.ContainsKey(id))
         {
             Debug.LogWarning($"Couldn't find player with id {id} in the player list...");
             return;
         }
-        if (NetworkManager.playerList[id].IsLocal) return;
+        if (NetworkManager.Singleton.playerList[id].IsLocal) return;
        // Debug.Log($"Player transform updated for {id}");
-        Transform transform = NetworkManager.playerList[id].transform;
+        Transform transform = NetworkManager.Singleton.playerList[id].transform;
         Vector3 position = message.GetVector3();
         if (position != Vector3.zero)
             transform.position = position;
@@ -62,6 +63,6 @@ public class MessageHandling : MonoBehaviour
         ushort id = message.GetUShort();
         string newState = message.GetString();
         Debug.Log($"Changed state for {id} to {newState}");
-        NetworkManager.playerList[id].state = newState;
+        NetworkManager.Singleton.playerList[id].state = newState;
     }
 }

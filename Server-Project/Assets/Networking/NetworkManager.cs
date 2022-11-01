@@ -27,7 +27,7 @@ public class NetworkManager : MonoBehaviour
     [SerializeField] private ushort maxClientCount;
     public bool active;
     [Header("Network Objects")]
-    public static Dictionary<ushort, PlayerNetworking> playerList = new Dictionary<ushort, PlayerNetworking>();
+    public Dictionary<ushort, PlayerNetworking> playerList = new Dictionary<ushort, PlayerNetworking>();
 
     private void Awake()
     {
@@ -83,12 +83,12 @@ public class NetworkManager : MonoBehaviour
     {
         Debug.Log($"Spawned player with Id: {id} and Name: {username}");
         PlayerNetworking player;
-        player = Instantiate(GameLogic.Singleton.playerPrefab, position, Quaternion.identity, GameLogic.Singleton.playerParent).GetComponent<PlayerNetworking>();
+        player = Instantiate(GameInformation.Singleton.playerPrefab, position, Quaternion.identity, GameInformation.Singleton.playerParent).GetComponent<PlayerNetworking>();
 
         player.name = $"Player {id} - {username}";
         player.Id = id;
         player.username = username;
 
-        playerList.Add(id, player);
+        Singleton.playerList.Add(id, player);
     }
 }

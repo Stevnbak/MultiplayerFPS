@@ -12,11 +12,13 @@ public enum MessageIds : ushort
     playerLeft,
     playerTransformUpdate,
     playerStatusUpdate,
+    weaponFire
 }
 
 
 public class MessageHandling : MonoBehaviour
 {
+    #region player
     [MessageHandler((ushort)MessageIds.playerInformation)]
     static void PlayerInformation(ushort fromClientId, Message message)
     {
@@ -26,7 +28,7 @@ public class MessageHandling : MonoBehaviour
         Vector3 spawnPos = new Vector3(0f, 2f, 0f);
 
         //Tell new player to spawn all current ones
-        foreach (PlayerNetworking otherPlayer in NetworkManager.playerList.Values)
+        foreach (PlayerNetworking otherPlayer in NetworkManager.Singleton.playerList.Values)
         {
             Message msg = Message.Create(MessageSendMode.Reliable, (ushort)MessageIds.playerJoined);
             msg.AddUShort(otherPlayer.Id);
@@ -51,7 +53,7 @@ public class MessageHandling : MonoBehaviour
     [MessageHandler((ushort)MessageIds.playerTransformUpdate)]
     static void PlayerTransformUpdate(ushort id, Message message)
     {
-        Transform transform = NetworkManager.playerList[id].transform;
+        Transform transform = NetworkManager.Singleton.playerList[id].transform;
         Vector3 position = message.GetVector3();
         if (position != Vector3.zero)
             transform.position = position;
@@ -59,4 +61,13 @@ public class MessageHandling : MonoBehaviour
         if (rotation != Quaternion.identity)
             transform.rotation = rotation;
     }
+    #endregion
+    #region weapons
+    [MessageHandler((ushort)MessageIds.weaponFire)]
+    static void WeaponFire(ushort id, Message message)
+    {
+        PlayerNetworking player = NetworkManager.Singleton.playerList[id];
+        player.weapon.Fire(message.GetVector3());
+    }
+    #endregion
 }

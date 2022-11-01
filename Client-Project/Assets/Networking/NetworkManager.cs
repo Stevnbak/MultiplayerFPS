@@ -24,11 +24,17 @@ public class NetworkManager : MonoBehaviour
             }
         }
     }
+    [HideInInspector]
     public Client Client { get; private set; }
-    [SerializeField] private string ip;
-    [SerializeField] private ushort port;
+    [Header("Settings")]
+    [SerializeField] bool test;
+
+    //Networking values
+    private string ip = "127.0.0.1";
+    private string testIp = "127.0.0.1";
+    [SerializeField] private ushort port = 2000;
     [Header("Network Objects")]
-    public static Dictionary<ushort, PlayerNetworking> playerList = new Dictionary<ushort, PlayerNetworking>();
+    public Dictionary<ushort, PlayerNetworking> playerList = new Dictionary<ushort, PlayerNetworking>();
 
     public void Connect()
     {
@@ -63,6 +69,13 @@ public class NetworkManager : MonoBehaviour
         Singleton.Client.Connected += DidConnect;
         Singleton.Client.ConnectionFailed += FailedToConnect;
         Singleton.Client.Disconnected += DidDisconnect;
+        if(test)
+        {
+            Debug.Log("Connecting to local test server...");
+            Singleton.Client.Connect($"{testIp}:{port}");
+            UIManager.Singleton.hideUI();
+        }
+
     }
 
     private void FixedUpdate()
@@ -81,23 +94,23 @@ public class NetworkManager : MonoBehaviour
         PlayerNetworking player;
         if (id == Singleton.Client.Id)
         {
-            player = Instantiate(GameLogic.Singleton.playerPrefab, position, Quaternion.identity, GameLogic.Singleton.playerParent).GetComponent<PlayerNetworking>();
+            player = Instantiate(GameInformation.Singleton.playerPrefab, position, Quaternion.identity, GameInformation.Singleton.playerParent).GetComponent<PlayerNetworking>();
             player.IsLocal = true;
-            GameLogic.Singleton.CMCam.Follow = player.transform.Find("PlayerCameraRoot");
+            GameInformation.Singleton.CMCam.Follow = player.transform.Find("PlayerCameraRoot");
         }
         else
         {
-            player = Instantiate(GameLogic.Singleton.playerPrefab, position, Quaternion.identity, GameLogic.Singleton.playerParent).GetComponent<PlayerNetworking>();
+            player = Instantiate(GameInformation.Singleton.playerPrefab, position, Quaternion.identity, GameInformation.Singleton.playerParent).GetComponent<PlayerNetworking>();
             player.IsLocal = false;
-            Destroy(player.GetComponent<FirstPersonController>());
+            Destroy(player.GetComponent<PlayerController>());
             Destroy(player.GetComponent<PlayerInput>());
-            Destroy(player.GetComponent<StarterAssetsInputs>());
+            Destroy(player.GetComponent<InputManager>());
         }
 
         player.name = $"Player {id} - {username}";
         player.Id = id;
         player.username = username;
 
-        playerList.Add(id, player);
+        Singleton.playerList.Add(id, player);
     }
 }

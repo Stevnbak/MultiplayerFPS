@@ -367,10 +367,13 @@
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/Unity.VSCode.Editor.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/UnityEditor.UI.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/UnityEngine.UI.ref.dll"
-"Assets/Networking/GameLogic.cs"
 "Assets/Networking/MessageHandling.cs"
 "Assets/Networking/NetworkManager.cs"
 "Assets/Networking/PlayerNetworking.cs"
+"Assets/Player/PlayerInfo.cs"
+"Assets/Settings/GameInformation.cs"
+"Assets/Weapons/WeaponScript.cs"
+"Assets/Weapons/Weapon_Data.cs"
 -langversion:9.0
 
 /deterministic

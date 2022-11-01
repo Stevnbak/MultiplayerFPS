@@ -39,9 +39,14 @@ public class UIManager : MonoBehaviour
     public void ConnectClick()
     {
         username = usernameField.text;
+        hideUI();
+        NetworkManager.Singleton.Connect();       
+    }
+
+    public void hideUI()
+    {
         //SceneManager.LoadScene(1);
         connectUI.SetActive(false);
-        NetworkManager.Singleton.Connect();       
     }
 
     public void BackToMain()
