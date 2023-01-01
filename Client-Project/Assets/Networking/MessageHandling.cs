@@ -6,16 +6,6 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
 
-public enum MessageIds : ushort
-{
-    playerJoined = 1,
-    playerInformation,
-    playerLeft,
-    playerTransformUpdate,
-    playerStatusUpdate,
-    weaponFire
-}
-
 public class MessageHandling : MonoBehaviour
 {
 

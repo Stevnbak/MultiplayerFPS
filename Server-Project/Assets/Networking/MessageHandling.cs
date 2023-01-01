@@ -5,16 +5,6 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public enum MessageIds : ushort
-{
-    playerJoined = 1,
-    playerInformation,
-    playerLeft,
-    playerTransformUpdate,
-    playerStatusUpdate,
-    weaponFire
-}
-
 
 public class MessageHandling : MonoBehaviour
 {

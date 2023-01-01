@@ -78,8 +78,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa2763748ea76164295c8cb18ea5c210, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponData: {fileID: 11400000, guid: bdd2b0ecc5ded304f9c820f06da9da1c, type: 2}
-  shootingPoint: {fileID: 3033669270152784599}
+  weaponData: {fileID: 11400000, guid: 17382430c665a474886d4ad198c78fe8, type: 2}
   bullet: {fileID: 6872906194984140641, guid: 6e7820dc98937444289747fcdc0b6bdc, type: 3}
   isFiring: 0
   stopBurst: 0

@@ -9,7 +9,6 @@ public class WeaponScript : MonoBehaviour
 {
     [Header("Editor Settings")]
     public Weapon_Data weaponData;
-    public Transform shootingPoint;
     public BulletScript bullet;
 
     [Header("Manager Variables")]
@@ -59,6 +58,7 @@ public class WeaponScript : MonoBehaviour
     void FireProjectile()
     {
         ///Debug.Log("Fire");
+        Vector3 shootingPoint = transform.position + weaponData.shootPoint;
         //Raycast:
         Vector3 direction = Camera.main.transform.forward;
         int layerMask = LayerMask.GetMask("World", "Players");
@@ -78,21 +78,21 @@ public class WeaponScript : MonoBehaviour
             }
             //Tell server, shots fired:
             Message message = Message.Create(MessageSendMode.Reliable, (ushort)MessageIds.weaponFire);
-            Vector3 actualDir = (hit.point - shootingPoint.position);
+            Vector3 actualDir = (hit.point - shootingPoint);
             actualDir.Normalize();
             message.AddVector3(actualDir);
             NetworkManager.Singleton.Client.Send(message);
 
             //Visuals
-            Debug.DrawRay(shootingPoint.position, (hit.point - shootingPoint.position), color, 5);
-            BulletScript temp = Instantiate(bullet.gameObject, shootingPoint.position, shootingPoint.rotation, GameInformation.Singleton.tempParent).GetComponent<BulletScript>();
-            temp.Initialize((hit.point - shootingPoint.position), weaponData.projectileSpeed, hit.point);
+            Debug.DrawRay(shootingPoint, (hit.point - shootingPoint), color, 5);
+            BulletScript temp = Instantiate(bullet.gameObject, shootingPoint, transform.rotation, GameInformation.Singleton.tempParent).GetComponent<BulletScript>();
+            temp.Initialize((hit.point - shootingPoint), weaponData.projectileSpeed, hit.point);
         }
         else
         {
-            Debug.DrawRay(shootingPoint.position, direction * 1000, Color.red, 5);
-            BulletScript temp = Instantiate(bullet.gameObject, shootingPoint.position, shootingPoint.rotation, GameInformation.Singleton.tempParent).GetComponent<BulletScript>();
-            temp.Initialize(direction, weaponData.projectileSpeed, shootingPoint.position + direction * 1000);
+            Debug.DrawRay(shootingPoint, direction * 1000, Color.red, 5);
+            BulletScript temp = Instantiate(bullet.gameObject, shootingPoint, transform.rotation, GameInformation.Singleton.tempParent).GetComponent<BulletScript>();
+            temp.Initialize(direction, weaponData.projectileSpeed, shootingPoint + direction * 1000);
             ///Debug.Log("Did not Hit");
         }
     }

@@ -414,10 +414,11 @@
 "Assets/Player/PlayerInfo.cs"
 "Assets/Player/PlayerNetworking.cs"
 "Assets/Settings/GameInformation.cs"
+"Assets/Shared/MessageIds.cs"
+"Assets/Shared/Weapons/Weapon_Data.cs"
 "Assets/Weapons/BulletScript.cs"
 "Assets/Weapons/WeaponManager.cs"
 "Assets/Weapons/WeaponScript.cs"
-"Assets/Weapons/Weapon_Data.cs"
 -langversion:9.0
 
 /deterministic

@@ -9,7 +9,6 @@ public class WeaponScript : MonoBehaviour
 {
     [Header("Editor Settings")]
     public Weapon_Data weaponData;
-    public Transform shootingPoint;
 
     void Start()
     {
@@ -19,10 +18,11 @@ public class WeaponScript : MonoBehaviour
     public void Fire(Vector3 direction)
     {
         ///Debug.Log("Fire");
+        Vector3 shootingPoint = transform.position + weaponData.shootPoint;
         //Raycast:
         int layerMask = LayerMask.GetMask("World", "Players");
         RaycastHit hit;
-        if (Physics.Raycast(shootingPoint.position, direction, out hit, Mathf.Infinity, layerMask))
+        if (Physics.Raycast(shootingPoint, direction, out hit, Mathf.Infinity, layerMask))
         {
             Color color;
             if (hit.transform.GetComponent<PlayerInfo>())
@@ -36,17 +36,13 @@ public class WeaponScript : MonoBehaviour
                 ///Debug.Log("Hit world object");
                 color = Color.blue;
             }
-            //Tell server, shots fired:
-            /**Message message = Message.Create(MessageSendMode.Reliable, (ushort)MessageIds.weaponFire);
-            message.AddVector3(direction);
-            NetworkManager.Singleton.Client.Send(message);*/
 
             //Visuals
-            Debug.DrawRay(shootingPoint.position, (hit.point - shootingPoint.position), color, 5);
+            Debug.DrawRay(shootingPoint, (hit.point - shootingPoint), color, 5);
         }
         else
         {
-            Debug.DrawRay(shootingPoint.position, direction * 1000, Color.red, 5);
+            Debug.DrawRay(shootingPoint, direction * 1000, Color.red, 5);
             ///Debug.Log("Did not Hit");
         }
     }
