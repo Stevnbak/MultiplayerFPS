@@ -75,5 +75,7 @@ Server-Project/Library/PackageCache/com.unity.burst@1.7.3/.Runtime/libburst-llvm
 Server-Project/Library/PackageCache/com.unity.burst@1.7.3/.Runtime/hostmac/lld
 Client-Project/Library/PackageCache/com.unity.burst@1.7.3/.Runtime/libburst-llvm-12.dylib
 Client-Project/Library/PackageCache/com.unity.burst@1.7.3/.Runtime/hostmac/lld
+Client-Project/Library/ArtifactDB
 Client-Project/Library/PackageCache/com.unity.toolchain.win-x86_64-linux-x86_64@2.0.2/data~/payload.tar.7z
 Server-Project/Library/PackageCache/com.unity.toolchain.win-x86_64-linux-x86_64@2.0.2/data~/payload.tar.7z
+Client-Project/Library/PackageCache/com.unity.modules.terrainphysics@1.0.0/package.ModuleCompilationTrigger
