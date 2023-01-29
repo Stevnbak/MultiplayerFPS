@@ -1,3 +1,3 @@
-mklink /J "C:\Current-Unity-Project\MultiplayerFPS\Client-Project\Assets\Shared" "C:\Current-Unity-Project\MultiplayerFPS\Shared Assets"
-mklink /J C:\Current-Unity-Project\MultiplayerFPS\Server-Project\Assets\Shared "C:\Current-Unity-Project\MultiplayerFPS\Shared Assets"
+mklink /J "E:\Programming\Unity Projects\MultiplayerFPS\Client-Project\Assets\Shared" "E:\Programming\Unity Projects\MultiplayerFPS\Shared Assets"
+mklink /J "E:\Programming\Unity Projects\MultiplayerFPS\Server-Project\Assets\Shared" "E:\Programming\Unity Projects\MultiplayerFPS\Shared Assets"
 pause
