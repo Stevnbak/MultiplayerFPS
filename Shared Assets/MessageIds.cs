@@ -6,5 +6,7 @@ public enum MessageIds : ushort
     playerTransformUpdate,
     playerStatusUpdate,
     playerHealthUpdate,
+    playerDeath,
+    playerRespawn,
     weaponFire,
 }

@@ -29,7 +29,11 @@ public class UIManager : MonoBehaviour
 
     [Header("Info")]
     [SerializeField] private string username;
-    
+
+    [Header("Parts")]
+    [SerializeField] public GameObject DeathScreen;
+    [SerializeField] public GameObject HUDScreen;
+
 
     private void Awake()
     {

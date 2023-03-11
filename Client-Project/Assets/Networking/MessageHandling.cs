@@ -35,7 +35,8 @@ public class MessageHandling : MonoBehaviour
             Debug.LogWarning($"Couldn't find player with id {id} in the player list...");
             return;
         }
-        if (NetworkManager.Singleton.playerList[id].IsLocal) return;
+        PlayerNetworking player = NetworkManager.Singleton.playerList[id];
+        if (player.IsLocal && player.playerInfo.alive) return;
        // Debug.Log($"Player transform updated for {id}");
         Transform transform = NetworkManager.Singleton.playerList[id].transform;
         Vector3 position = message.GetVector3();
@@ -62,6 +63,23 @@ public class MessageHandling : MonoBehaviour
     {
         ushort id = message.GetUShort();
         float newHealth = message.GetFloat();
-        NetworkManager.Singleton.playerList[id].gameObject.GetComponent<PlayerInfo>().updateHealth(newHealth);
+        NetworkManager.Singleton.playerList[id].gameObject.GetComponent<PlayerInfo>().UpdateHealth(newHealth);
+    }
+
+    //Player Death
+    [MessageHandler((ushort)MessageIds.playerDeath)]
+    static void playerDeath(Message message)
+    {
+        ushort id = message.GetUShort();
+        NetworkManager.Singleton.playerList[id].gameObject.GetComponent<PlayerInfo>().Death();
+    }
+
+    //Player Death
+    [MessageHandler((ushort)MessageIds.playerRespawn)]
+    static void playerRespawn(Message message)
+    {
+        ushort id = message.GetUShort();
+        Vector3 position = message.GetVector3();
+        NetworkManager.Singleton.playerList[id].gameObject.GetComponent<PlayerInfo>().Respawn(position);
     }
 }

@@ -31,7 +31,7 @@ public class WeaponScript : MonoBehaviour
                 //Object hit was a player...
                 ///Debug.Log("Hit player");
                 color = Color.green;
-                playerHit.takeDamage(weaponData.damage);
+                playerHit.TakeDamage(weaponData.damage);
             }
             else
             {

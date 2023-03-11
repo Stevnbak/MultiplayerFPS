@@ -19,11 +19,21 @@ public class PlayerNetworking : MonoBehaviour
     [Header("Player Information")]
     public string state;
     public WeaponScript weapon;
+    public PlayerInfo playerInfo;
+
+    private void Start()
+    {
+        playerInfo = GetComponent<PlayerInfo>();
+    }
 
     void FixedUpdate()  
     {
         //Only on local player...
         if (!IsLocal) return;
+
+        //Player is dead, no updates to send
+        if (!playerInfo.alive) return;
+
         //Send updated position
         Message message = Message.Create(MessageSendMode.Unreliable, (ushort)MessageIds.playerTransformUpdate);
         if (position) message.AddVector3(transform.position); else message.AddVector3(Vector3.zero);

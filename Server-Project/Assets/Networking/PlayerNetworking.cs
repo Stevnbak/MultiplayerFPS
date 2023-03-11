@@ -14,13 +14,23 @@ public class PlayerNetworking : MonoBehaviour
     [Header("Player Information")]
     public string state;
     public WeaponScript weapon;
+    private PlayerInfo playerInfo;
 
     [Header("Settings")]
     public bool position;
     public bool rotation;
 
+    private void Start()
+    {
+        playerInfo = GetComponent<PlayerInfo>();
+    }
+
     void FixedUpdate()  
     {
+        if(!playerInfo.alive)
+        {
+            transform.position = GameInformation.Singleton.deathPosition;
+        }
         //Send position to all clients
         Message message = Message.Create(MessageSendMode.Unreliable, (ushort)MessageIds.playerTransformUpdate);
         message.AddUShort(Id);
