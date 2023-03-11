@@ -1,18 +1,23 @@
+using Riptide;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerInfo : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public float health;
+    public static float maxHealth = 100;
     void Start()
     {
-        
+        health = maxHealth;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void takeDamage(float damage)
     {
-        
+        health -= damage;
+        Message msg = Message.Create(MessageSendMode.Reliable, (ushort)MessageIds.playerHealthUpdate);
+        msg.AddUShort(transform.GetComponent<PlayerNetworking>().Id);
+        msg.AddFloat(health);
+        NetworkManager.Singleton.Server.SendToAll(msg);
     }
 }

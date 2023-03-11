@@ -55,4 +55,13 @@ public class MessageHandling : MonoBehaviour
         Debug.Log($"Changed state for {id} to {newState}");
         NetworkManager.Singleton.playerList[id].state = newState;
     }
+
+    //Recieve health update
+    [MessageHandler((ushort)MessageIds.playerHealthUpdate)]
+    static void playerHealthUpdate(Message message)
+    {
+        ushort id = message.GetUShort();
+        float newHealth = message.GetFloat();
+        NetworkManager.Singleton.playerList[id].gameObject.GetComponent<PlayerInfo>().updateHealth(newHealth);
+    }
 }

@@ -25,11 +25,13 @@ public class WeaponScript : MonoBehaviour
         if (Physics.Raycast(shootingPoint, direction, out hit, Mathf.Infinity, layerMask))
         {
             Color color;
-            if (hit.transform.GetComponent<PlayerInfo>())
+            PlayerInfo playerHit = hit.transform.GetComponent<PlayerInfo>();
+            if (playerHit)
             {
                 //Object hit was a player...
                 ///Debug.Log("Hit player");
                 color = Color.green;
+                playerHit.takeDamage(weaponData.damage);
             }
             else
             {

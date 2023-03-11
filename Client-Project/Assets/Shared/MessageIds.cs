@@ -5,5 +5,6 @@ public enum MessageIds : ushort
     playerLeft,
     playerTransformUpdate,
     playerStatusUpdate,
-    weaponFire
+    playerHealthUpdate,
+    weaponFire,
 }
