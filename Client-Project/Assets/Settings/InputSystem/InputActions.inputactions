@@ -324,9 +324,9 @@
                 {
                     "name": "Scroll Wheel",
                     "id": "ce659419-94a1-4f1a-b97f-183f7266afe9",
-                    "path": "1DAxis(minValue=0,maxValue=2,whichSideWins=1)",
+                    "path": "1DAxis",
                     "interactions": "",
-                    "processors": "",
+                    "processors": "Scale(factor=0.008333334)",
                     "groups": "",
                     "action": "Weapon",
                     "isComposite": true,
@@ -353,6 +353,17 @@
                     "action": "Weapon",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "74ac7d4c-71d7-480d-8816-1cd1601469d7",
+                    "path": "<Keyboard>/#(1)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "Weapon",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

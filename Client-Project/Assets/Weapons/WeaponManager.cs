@@ -1,13 +1,16 @@
+using Riptide;
 using StarterAssets;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class WeaponManager : MonoBehaviour
 {
     [Header("Weapons")]
-    public WeaponScript[] EqippedWeapons;
-    public int selectedWeapon = 0;
+    public WeaponScript[] EquippedWeapons;
+    public uint selectedWeapon = 0;
 
     [Header("Position")]
     public Transform equippedPosition;
@@ -24,17 +27,21 @@ public class WeaponManager : MonoBehaviour
     //bool lastFiringState = false;
     private bool isReloading = false;
     private InputManager input;
+    private PlayerInfo playerInfo;
+    private PlayerNetworking playerNetworking;
 
     void Start()
     {
         input = GetComponent<InputManager>();
+        playerInfo = GetComponent<PlayerInfo>();
+        playerNetworking = GetComponent<PlayerNetworking>();
         StartCoroutine(Reload(true));
     }
 
     void Update()
     {
         //Update ammo count
-        currentAmmo = EqippedWeapons[selectedWeapon].currentAmmo;
+        currentAmmo = EquippedWeapons[selectedWeapon].currentAmmo;
 
         //Inputs
         Fire(input.shoot);
@@ -44,7 +51,7 @@ public class WeaponManager : MonoBehaviour
             input.reload = false;
             StartCoroutine(Reload());
         }
-        StartCoroutine(SwapWeapon(input.weapon));
+        StartCoroutine(SwapWeapon((uint) input.weapon));
     }
 
     void ADS(bool state)
@@ -52,22 +59,35 @@ public class WeaponManager : MonoBehaviour
         //Debug.Log("ADS: " + state);
     }
 
-    IEnumerator SwapWeapon(int newWeapon)
+    IEnumerator SwapWeapon(uint newWeapon)
     {
         if (newWeapon == selectedWeapon || swappingInProgress) yield break;
         Debug.Log("Switching to weapon: " + newWeapon);
         cancelReload();
         Fire(false);
-        EqippedWeapons[selectedWeapon].stopBurst = true;
+        EquippedWeapons[selectedWeapon].stopBurst = true;
         swappingInProgress = true;
         //Start unequip animation
-        yield return new WaitForSeconds(EqippedWeapons[selectedWeapon].weaponData.unequipTime);
-        if (newWeapon > EqippedWeapons.Length - 1) newWeapon = 0;
-        if (newWeapon < 0) newWeapon = EqippedWeapons.Length - 1;
+        yield return new WaitForSeconds(EquippedWeapons[selectedWeapon].weaponData.unequipTime);
+        if (newWeapon > EquippedWeapons.Length - 1) newWeapon = 0;
+        if (newWeapon < 0) newWeapon = (uint) EquippedWeapons.Length - 1;
         //Start equip animation
-        yield return new WaitForSeconds(EqippedWeapons[newWeapon].weaponData.equipTime);
+        yield return new WaitForSeconds(EquippedWeapons[newWeapon].weaponData.equipTime);
         selectedWeapon = newWeapon;
         swappingInProgress = false;
+        //Send server new weapon info
+        if (playerNetworking.IsLocal)
+        {
+            Message message = Message.Create(MessageSendMode.Reliable, (ushort)MessageIds.weaponUpdate);
+            ushort[] weapons = new ushort[EquippedWeapons.Length];
+            for(int i = 0; i < weapons.Length; i++)
+            {
+                weapons[i] = EquippedWeapons[i].weaponData.weaponId;
+            }
+            message.AddUShorts(weapons);
+            message.AddUInt(selectedWeapon);
+            NetworkManager.Singleton.Client.Send(message);
+        }
         yield return null;
     }
     
@@ -77,11 +97,11 @@ public class WeaponManager : MonoBehaviour
         if (state)
         {
             if (swappingInProgress) return;
-            EqippedWeapons[selectedWeapon].isFiring = true;
+            EquippedWeapons[selectedWeapon].isFiring = true;
             cancelReload();
         } else
         {
-            EqippedWeapons[selectedWeapon].isFiring = false;
+            EquippedWeapons[selectedWeapon].isFiring = false;
         }
     }
 
@@ -89,16 +109,16 @@ public class WeaponManager : MonoBehaviour
     {
         Debug.Log("Reloading");
         if (swappingInProgress || isReloading) yield break;
-        EqippedWeapons[selectedWeapon].stopBurst = true;
+        EquippedWeapons[selectedWeapon].stopBurst = true;
         isReloading = true;
-        currentAmmo = EqippedWeapons[selectedWeapon].currentAmmo;
+        currentAmmo = EquippedWeapons[selectedWeapon].currentAmmo;
         Fire(false);
         if (!skipTime) {
             //Start animation
-            yield return new WaitForSeconds(EqippedWeapons[selectedWeapon].weaponData.reloadTime); 
+            yield return new WaitForSeconds(EquippedWeapons[selectedWeapon].weaponData.reloadTime); 
         }
         if(!isReloading) yield break;
-        float magSize = EqippedWeapons[selectedWeapon].weaponData.magSize;
+        float magSize = EquippedWeapons[selectedWeapon].weaponData.magSize;
         totalAmmo -= magSize;
         if (totalAmmo < 0)
         {
@@ -109,7 +129,7 @@ public class WeaponManager : MonoBehaviour
         {
             currentAmmo = magSize;
         }
-        EqippedWeapons[selectedWeapon].currentAmmo = currentAmmo;
+        EquippedWeapons[selectedWeapon].currentAmmo = currentAmmo;
         isReloading = false;
         yield return null;
     }

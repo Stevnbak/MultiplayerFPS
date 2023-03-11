@@ -26,6 +26,8 @@ public class UIManager : MonoBehaviour
     [Header("Connect")]
     [SerializeField] private GameObject connectUI;
     [SerializeField] private TMP_InputField usernameField;
+    [SerializeField] private TMP_InputField ipField;
+    [SerializeField] private TMP_InputField portField;
 
     [Header("Info")]
     [SerializeField] private string username;
@@ -38,25 +40,33 @@ public class UIManager : MonoBehaviour
     private void Awake()
     {
         Singleton = this;
+        BackToMain();
+        ipField.text = "127.0.0.1";
+        portField.text = "2000";
     }
 
     public void ConnectClick()
     {
         username = usernameField.text;
+
         hideUI();
-        NetworkManager.Singleton.Connect();       
+        NetworkManager.Singleton.Connect(ipField.text, portField.text);       
     }
 
     public void hideUI()
     {
         //SceneManager.LoadScene(1);
         connectUI.SetActive(false);
+        HUDScreen.SetActive(true);
     }
 
     public void BackToMain()
     {
         usernameField.interactable = true;
+        ipField.interactable = true;
+        portField.interactable = true;
         connectUI.SetActive(true);
+        HUDScreen.SetActive(false);
     }
 
     public void SendName()

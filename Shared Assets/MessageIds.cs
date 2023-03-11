@@ -9,4 +9,5 @@ public enum MessageIds : ushort
     playerDeath,
     playerRespawn,
     weaponFire,
+    weaponUpdate,
 }

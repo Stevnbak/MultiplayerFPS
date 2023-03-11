@@ -57,7 +57,22 @@ public class MessageHandling : MonoBehaviour
     static void WeaponFire(ushort id, Message message)
     {
         PlayerNetworking player = NetworkManager.Singleton.playerList[id];
-        player.weapon.Fire(message.GetVector3());
+        player.weapons[player.selectedWeapon].Fire(message.GetVector3());
+    }
+    [MessageHandler((ushort)MessageIds.weaponUpdate)]
+    static void WeaponUpdate(ushort id, Message message)
+    {
+        PlayerNetworking player = NetworkManager.Singleton.playerList[id];
+        ushort[] weaponIds = message.GetUShorts();
+        uint selectedWeapon = message.GetUInt();
+        player.weapons = new WeaponScript[weaponIds.Length];
+        for(int i = 0; i < weaponIds.Length; i++)
+        {
+            Weapon_Data data = WeaponList.weaponIdToScript[weaponIds[i]];
+            GameObject weaponObject = Instantiate(new GameObject(data.weaponName),player.transform.position,player.transform.rotation,player.transform);
+            player.weapons[i] = weaponObject.GetComponent<WeaponScript>();
+        }
+        player.selectedWeapon = selectedWeapon;
     }
     #endregion
 }

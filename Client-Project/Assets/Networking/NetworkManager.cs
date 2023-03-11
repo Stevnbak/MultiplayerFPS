@@ -30,13 +30,11 @@ public class NetworkManager : MonoBehaviour
     [SerializeField] bool test;
 
     //Networking values
-    private string ip = "127.0.0.1";
-    private string testIp = "127.0.0.1";
-    [SerializeField] private ushort port = 2000;
+    private string testIp = "127.0.0.1:2000";
     [Header("Network Objects")]
     public Dictionary<ushort, PlayerNetworking> playerList = new Dictionary<ushort, PlayerNetworking>();
 
-    public void Connect()
+    public void Connect(string ip, string port)
     {
         Singleton.Client.Connect($"{ip}:{port}");
     }
@@ -72,10 +70,9 @@ public class NetworkManager : MonoBehaviour
         if(test)
         {
             Debug.Log("Connecting to local test server...");
-            Singleton.Client.Connect($"{testIp}:{port}");
+            Singleton.Client.Connect($"{testIp}");
             UIManager.Singleton.hideUI();
         }
-
     }
 
     private void FixedUpdate()

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
@@ -64,7 +65,8 @@ namespace StarterAssets
         //Switch weapon
         public void OnWeapon(InputValue value)
         {
-            weapon = (int)value.Get<float>();
+			float scrollValue = value.Get<float>();
+            weapon += (int)scrollValue;
         }
 #endif
 
