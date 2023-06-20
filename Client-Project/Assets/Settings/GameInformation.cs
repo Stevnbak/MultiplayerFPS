@@ -26,6 +26,7 @@ public class GameInformation : MonoBehaviour
     public Transform tempParent;
     public Transform playerParent;
     public CinemachineVirtualCamera CMCam;
+    public List<WeaponScript> WeaponPrefabList = new List<WeaponScript>();
 
     private void Awake()
     {

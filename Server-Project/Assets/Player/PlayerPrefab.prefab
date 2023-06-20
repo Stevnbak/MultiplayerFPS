@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6484448012442659158}
   - component: {fileID: 7421195776396988027}
   - component: {fileID: 9084571321237298353}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -118,7 +118,7 @@ GameObject:
   - component: {fileID: 3297811127922589364}
   - component: {fileID: 2295213023311558874}
   - component: {fileID: 4807295902908936448}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PlayerPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -138,7 +138,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 298113246882277995}
-  - {fileID: 9015968598337006166}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -157,7 +156,8 @@ MonoBehaviour:
   Id: 0
   username: 
   state: 
-  weapon: {fileID: 0}
+  EquippedWeapons: 
+  CurrentWeapon: {fileID: 0}
   position: 1
   rotation: 1
 --- !u!114 &4807295902908936448
@@ -174,82 +174,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 0
   alive: 1
---- !u!1001 &7039373322965079909
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 3297811127922589364}
-    m_Modifications:
-    - target: {fileID: 2067089652854422835, guid: fcd5007002f81c8418cdc7099e8fd491,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2067089652854422835, guid: fcd5007002f81c8418cdc7099e8fd491,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2067089652854422835, guid: fcd5007002f81c8418cdc7099e8fd491,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.139
-      objectReference: {fileID: 0}
-    - target: {fileID: 2067089652854422835, guid: fcd5007002f81c8418cdc7099e8fd491,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.542
-      objectReference: {fileID: 0}
-    - target: {fileID: 2067089652854422835, guid: fcd5007002f81c8418cdc7099e8fd491,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 2067089652854422835, guid: fcd5007002f81c8418cdc7099e8fd491,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2067089652854422835, guid: fcd5007002f81c8418cdc7099e8fd491,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2067089652854422835, guid: fcd5007002f81c8418cdc7099e8fd491,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 2067089652854422835, guid: fcd5007002f81c8418cdc7099e8fd491,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2067089652854422835, guid: fcd5007002f81c8418cdc7099e8fd491,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2067089652854422835, guid: fcd5007002f81c8418cdc7099e8fd491,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 3558996734730746258, guid: fcd5007002f81c8418cdc7099e8fd491,
-        type: 3}
-      propertyPath: m_Name
-      value: Test Weapon
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: fcd5007002f81c8418cdc7099e8fd491, type: 3}
---- !u!4 &9015968598337006166 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2067089652854422835, guid: fcd5007002f81c8418cdc7099e8fd491,
-    type: 3}
-  m_PrefabInstance: {fileID: 7039373322965079909}
-  m_PrefabAsset: {fileID: 0}

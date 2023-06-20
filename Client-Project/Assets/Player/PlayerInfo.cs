@@ -7,10 +7,13 @@ public class PlayerInfo : MonoBehaviour
     public static float maxHealth = 100;
     public bool alive = true;
 
+    PlayerNetworking playerNetworking;
+
     void Start()
     {
+        playerNetworking = GetComponent<PlayerNetworking>();
         health = maxHealth;
-        UIManager.Singleton.DeathScreen.SetActive(false);
+        if (playerNetworking.IsLocal) UIManager.Singleton.DeathScreen.SetActive(false);
     }
 
     public void UpdateHealth(float newHealth)
@@ -22,14 +25,15 @@ public class PlayerInfo : MonoBehaviour
     {
         health = 0;
         alive = false;
-        UIManager.Singleton.DeathScreen.SetActive(true);
+        if(playerNetworking.IsLocal) UIManager.Singleton.DeathScreen.SetActive(true);
     }
 
     public void Respawn(Vector3 spawnPosition)
     {
+        Debug.Log("Respawning player " + playerNetworking.name);
         health = maxHealth;
         alive = true;
-        UIManager.Singleton.DeathScreen.SetActive(false);
+        if (playerNetworking.IsLocal) UIManager.Singleton.DeathScreen.SetActive(false);
         transform.position = spawnPosition;
     }
 }

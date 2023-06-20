@@ -36,8 +36,6 @@ public class NetworkManager : MonoBehaviour
 
     private void Start()
     {
-        //Refresh weapon dictionary
-        WeaponList.RefreshDictionary();
 #if UNITY_EDITOR
         RiptideLogger.Initialize(Debug.Log, Debug.Log, Debug.LogWarning, Debug.LogError, false);
 #else

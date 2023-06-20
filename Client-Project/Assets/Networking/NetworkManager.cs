@@ -52,6 +52,10 @@ public class NetworkManager : MonoBehaviour
 
     private void DidDisconnect(object sender, EventArgs e)
     {
+        foreach(PlayerNetworking item in playerList.Values) {
+            Destroy(item.gameObject);
+        }
+        playerList.Clear();
         UIManager.Singleton.BackToMain();
     }
 

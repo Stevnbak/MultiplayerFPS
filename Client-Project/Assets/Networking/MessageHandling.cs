@@ -71,15 +71,41 @@ public class MessageHandling : MonoBehaviour
     static void playerDeath(Message message)
     {
         ushort id = message.GetUShort();
+        Debug.Log("Player " + id + " died");
         NetworkManager.Singleton.playerList[id].gameObject.GetComponent<PlayerInfo>().Death();
     }
 
-    //Player Death
+    //Player Respawn
     [MessageHandler((ushort)MessageIds.playerRespawn)]
     static void playerRespawn(Message message)
     {
         ushort id = message.GetUShort();
         Vector3 position = message.GetVector3();
+        Debug.Log("Respawning player " + id);
         NetworkManager.Singleton.playerList[id].gameObject.GetComponent<PlayerInfo>().Respawn(position);
+    }
+
+    //Weapon fire
+    [MessageHandler((ushort)MessageIds.weaponFire)]
+    static void weaponFire(Message message)
+    {
+        ushort id = message.GetUShort();
+        PlayerNetworking player = NetworkManager.Singleton.playerList[id];
+        if (player.IsLocal) return;
+        Vector3 start = message.GetVector3();
+        Vector3 end = message.GetVector3();
+        player.GetComponent<WeaponManager>().CurrentWeapon.VisualizeProjectile(start, end, Color.magenta);
+    }
+
+    //Weapon update
+    [MessageHandler((ushort)MessageIds.weaponUpdate)]
+    static void weaponUpdate(Message message)
+    {
+        ushort id = message.GetUShort();
+        ushort[] equippedWeapons = message.GetUShorts();
+        ushort selectedWeaponId = message.GetUShort();
+        WeaponManager weaponManager = NetworkManager.Singleton.playerList[id].gameObject.GetComponent<WeaponManager>();
+        weaponManager.EquippedWeapons = equippedWeapons;
+        weaponManager.SetWeapon(selectedWeaponId, false);
     }
 }

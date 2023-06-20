@@ -16,12 +16,12 @@ MonoBehaviour:
   weaponId: 0
   weaponCategory: test
   ammoType: Normal
-  shootPoint: {x: 0, y: -1, z: 0}
+  shootPoint: {x: 0, y: 0, z: 1}
   damage: 5
   fireRate: 0.125
   reloadTime: 0.4
   magSize: 20
-  projectileSpeed: 5000
+  projectileSpeed: 50
   headshotMultiplier: 1.7
   equipTime: 0.5
   unequipTime: 0.1

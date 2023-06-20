@@ -42,7 +42,7 @@ public class PlayerInfo : MonoBehaviour
         msg.AddUShort(playerId);
         NetworkManager.Singleton.Server.SendToAll(msg);
 
-        StartCoroutine(TimedActions.StartTimedAction(30, () =>
+        StartCoroutine(TimedActions.StartTimedAction(5/**30*/, () =>
         {
             Respawn(new Vector3(0, 0, 0));
         }));
@@ -53,7 +53,7 @@ public class PlayerInfo : MonoBehaviour
         health = maxHealth;
         alive = true;
         transform.position = spawnPosition;
-        Message msg = Message.Create(MessageSendMode.Reliable, (ushort)MessageIds.playerDeath);
+        Message msg = Message.Create(MessageSendMode.Reliable, (ushort)MessageIds.playerRespawn);
         msg.AddUShort(playerId);
         msg.AddVector3(spawnPosition);
         NetworkManager.Singleton.Server.SendToAll(msg);

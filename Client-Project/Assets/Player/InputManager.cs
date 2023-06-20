@@ -17,7 +17,7 @@ namespace StarterAssets
         public bool shoot;
         public bool reload;
         public bool ads;
-		public int weapon;
+		public uint weapon;
 
         [Header("Movement Settings")]
 		public bool analogMovement;
@@ -65,8 +65,12 @@ namespace StarterAssets
         //Switch weapon
         public void OnWeapon(InputValue value)
         {
-			float scrollValue = value.Get<float>();
-            weapon += (int)scrollValue;
+			uint scrollValue = (uint) value.Get<float>();
+			uint newWeapon = weapon + scrollValue;
+            if (newWeapon > WeaponManager.MaxWeaponCount - 1) newWeapon = 0;
+            if (newWeapon < 0) newWeapon = WeaponManager.MaxWeaponCount - 1;
+            weapon = newWeapon;
+			Debug.Log("New weapon input = " + weapon);
         }
 #endif
 

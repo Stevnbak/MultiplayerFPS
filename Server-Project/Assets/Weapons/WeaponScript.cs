@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Riptide;
-using UnityEngine.Rendering.Universal;
-using UnityEngine.UIElements;
 
 public class WeaponScript : MonoBehaviour
 {
@@ -15,37 +13,47 @@ public class WeaponScript : MonoBehaviour
         name = weaponData.weaponName;
     }
 
-    public void Fire(Vector3 direction)
+    public void Fire(Vector3 direction, ushort playerId)
     {
-        ///Debug.Log("Fire");
-        Vector3 shootingPoint = transform.position + weaponData.shootPoint;
+        Debug.Log("Fire");
+        Vector3 shootingPoint = transform.position + Weapon_Data.gunPosition + weaponData.shootPoint;
         //Raycast:
         int layerMask = LayerMask.GetMask("World", "Players");
         RaycastHit hit;
+        Color color;
+        Vector3 hitPoint;
         if (Physics.Raycast(shootingPoint, direction, out hit, Mathf.Infinity, layerMask))
         {
-            Color color;
-            PlayerInfo playerHit = hit.transform.GetComponent<PlayerInfo>();
+            hitPoint = hit.point;
+            PlayerInfo playerHit = hit.transform.GetComponent<PlayerInfo>() ?? hit.transform.GetComponentInParent<PlayerInfo>() ?? hit.transform.GetComponentInChildren<PlayerInfo>();
             if (playerHit)
             {
                 //Object hit was a player...
-                ///Debug.Log("Hit player");
+                Debug.Log("Hit player");
                 color = Color.green;
                 playerHit.TakeDamage(weaponData.damage);
             }
             else
             {
-                ///Debug.Log("Hit world object");
+                Debug.Log("Hit world object");
                 color = Color.blue;
             }
-
-            //Visuals
-            Debug.DrawRay(shootingPoint, (hit.point - shootingPoint), color, 5);
         }
         else
         {
-            Debug.DrawRay(shootingPoint, direction * 1000, Color.red, 5);
-            ///Debug.Log("Did not Hit");
+            color = Color.red;
+            hitPoint = shootingPoint + direction * 1000;
+            Debug.Log("Did not Hit");
         }
+        //Visuals
+        Debug.DrawRay(shootingPoint, hitPoint - shootingPoint, color, 5);
+
+        //Tell all clients too
+        Message message = Message.Create(MessageSendMode.Reliable, MessageIds.weaponFire);
+        Debug.Log("Id: " + playerId);
+        message.AddUShort(playerId);
+        message.AddVector3(shootingPoint);
+        message.AddVector3(hitPoint);
+        NetworkManager.Singleton.Server.SendToAll(message);
     }
 }

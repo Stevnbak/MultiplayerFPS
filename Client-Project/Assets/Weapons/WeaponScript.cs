@@ -63,9 +63,11 @@ public class WeaponScript : MonoBehaviour
         Vector3 direction = Camera.main.transform.forward;
         int layerMask = LayerMask.GetMask("World", "Players");
         RaycastHit hit;
+
+        Color color;
+        Vector3 hitPoint;
         if (Physics.Raycast(Camera.main.transform.position, direction, out hit, Mathf.Infinity, layerMask))
         {
-            Color color;
             if (hit.transform.GetComponent<PlayerInfo>())
             {
                 //Object hit was a player...
@@ -76,24 +78,28 @@ public class WeaponScript : MonoBehaviour
                 ///Debug.Log("Hit world object");
                 color = Color.blue;
             }
-            //Tell server, shots fired:
-            Message message = Message.Create(MessageSendMode.Reliable, (ushort)MessageIds.weaponFire);
-            Vector3 actualDir = (hit.point - shootingPoint);
-            actualDir.Normalize();
-            message.AddVector3(actualDir);
-            NetworkManager.Singleton.Client.Send(message);
-
-            //Visuals
-            Debug.DrawRay(shootingPoint, (hit.point - shootingPoint), color, 5);
-            BulletScript temp = Instantiate(bullet.gameObject, shootingPoint, transform.rotation, GameInformation.Singleton.tempParent).GetComponent<BulletScript>();
-            temp.Initialize((hit.point - shootingPoint), weaponData.projectileSpeed, hit.point);
+            hitPoint = hit.point;
         }
         else
         {
-            Debug.DrawRay(shootingPoint, direction * 1000, Color.red, 5);
-            BulletScript temp = Instantiate(bullet.gameObject, shootingPoint, transform.rotation, GameInformation.Singleton.tempParent).GetComponent<BulletScript>();
-            temp.Initialize(direction, weaponData.projectileSpeed, shootingPoint + direction * 1000);
+            color = Color.red;
+            hitPoint = shootingPoint + direction * 1000;
             ///Debug.Log("Did not Hit");
         }
+        //Visuals
+        VisualizeProjectile(shootingPoint, hitPoint, color);
+        //Tell server, shots fired:
+        Message message = Message.Create(MessageSendMode.Reliable, (ushort)MessageIds.weaponFire);
+        Vector3 actualDir = (hitPoint - shootingPoint);
+        actualDir.Normalize();
+        message.AddVector3(actualDir);
+        NetworkManager.Singleton.Client.Send(message);
+    }
+
+    public void VisualizeProjectile(Vector3 startPoint, Vector3 endPoint, Color rayColor)
+    {
+        Debug.DrawRay(startPoint, endPoint - startPoint, rayColor, 5);
+        BulletScript temp = Instantiate(bullet.gameObject, startPoint, transform.rotation, GameInformation.Singleton.tempParent).GetComponent<BulletScript>();
+        temp.Initialize((endPoint - startPoint), weaponData.projectileSpeed, endPoint);
     }
 }

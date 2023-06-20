@@ -57,22 +57,32 @@ public class MessageHandling : MonoBehaviour
     static void WeaponFire(ushort id, Message message)
     {
         PlayerNetworking player = NetworkManager.Singleton.playerList[id];
-        player.weapons[player.selectedWeapon].Fire(message.GetVector3());
+        Vector3 direction = message.GetVector3();
+        Debug.Log("Player id: " + id);
+        player.CurrentWeapon.Fire(direction, id);
     }
     [MessageHandler((ushort)MessageIds.weaponUpdate)]
     static void WeaponUpdate(ushort id, Message message)
     {
         PlayerNetworking player = NetworkManager.Singleton.playerList[id];
-        ushort[] weaponIds = message.GetUShorts();
-        uint selectedWeapon = message.GetUInt();
-        player.weapons = new WeaponScript[weaponIds.Length];
-        for(int i = 0; i < weaponIds.Length; i++)
+        ushort[] equippedWeapons = message.GetUShorts();
+        ushort selectedWeaponId = message.GetUShort();
+        //Change player weapon
+        player.EquippedWeapons = equippedWeapons;
+        if (player.CurrentWeapon != null)
         {
-            Weapon_Data data = WeaponList.weaponIdToScript[weaponIds[i]];
-            GameObject weaponObject = Instantiate(new GameObject(data.weaponName),player.transform.position,player.transform.rotation,player.transform);
-            player.weapons[i] = weaponObject.GetComponent<WeaponScript>();
+            Destroy(player.CurrentWeapon.gameObject);
+            player.CurrentWeapon = null;
         }
-        player.selectedWeapon = selectedWeapon;
+        WeaponScript weapon = GameInformation.Singleton.WeaponPrefabList.Find((a) => a.weaponData.weaponId == selectedWeaponId);
+        GameObject weaponObject = Instantiate(weapon.gameObject, player.transform.position, player.transform.rotation, player.transform);
+        player.CurrentWeapon = weaponObject.GetComponent<WeaponScript>();
+        //Tell all clients too
+        message = Message.Create(MessageSendMode.Reliable, (ushort)MessageIds.weaponUpdate);
+        message.AddUShort(id);
+        message.AddUShorts(equippedWeapons);
+        message.AddUShort(selectedWeaponId);
+        NetworkManager.Singleton.Server.SendToAll(message);
     }
     #endregion
 }

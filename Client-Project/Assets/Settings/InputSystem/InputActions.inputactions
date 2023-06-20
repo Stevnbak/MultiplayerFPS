@@ -25,7 +25,7 @@
                 },
                 {
                     "name": "Jump",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "8c4abdf8-4099-493a-aa1a-129acec7c3df",
                     "expectedControlType": "Button",
                     "processors": "",
@@ -326,7 +326,7 @@
                     "id": "ce659419-94a1-4f1a-b97f-183f7266afe9",
                     "path": "1DAxis",
                     "interactions": "",
-                    "processors": "Scale(factor=0.008333334)",
+                    "processors": "Scale(factor=0)",
                     "groups": "",
                     "action": "Weapon",
                     "isComposite": true,

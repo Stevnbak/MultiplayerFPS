@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Weapon", menuName = "ScriptableObjects/Weapon_Data", order = 1)]
@@ -22,4 +23,8 @@ public class Weapon_Data : ScriptableObject
     public float falloffMultiplier = 1;
     public float falloffEnd,  falloffStart;
 
+
+    //Static shared information
+    [Header("Positions")]
+    public static Vector3 gunPosition = new(0.5f, 1f, 0.5f);
 }

@@ -13,8 +13,8 @@ public class PlayerNetworking : MonoBehaviour
 
     [Header("Player Information")]
     public string state;
-    public WeaponScript[] weapons;
-    public uint selectedWeapon = 0;
+    public ushort[] EquippedWeapons;
+    public WeaponScript CurrentWeapon;
     private PlayerInfo playerInfo;
 
     [Header("Settings")]

@@ -13,7 +13,7 @@ public class BulletScript : MonoBehaviour
         targetPoint = target;
         direction.Normalize();
         this.direction = direction * speed;
-        time = Vector3.Distance(transform.position, targetPoint) / speed;
+        time = Vector3.Distance(transform.position, targetPoint) / (speed);
         transform.rotation = Quaternion.LookRotation(direction);
         startTime = Time.time;
     }

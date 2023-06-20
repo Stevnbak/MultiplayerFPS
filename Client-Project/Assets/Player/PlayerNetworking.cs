@@ -18,7 +18,6 @@ public class PlayerNetworking : MonoBehaviour
 
     [Header("Player Information")]
     public string state;
-    public WeaponScript weapon;
     public PlayerInfo playerInfo;
 
     private void Start()

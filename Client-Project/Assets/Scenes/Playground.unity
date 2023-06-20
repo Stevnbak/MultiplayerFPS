@@ -506,6 +506,8 @@ MonoBehaviour:
   tempParent: {fileID: 112765331}
   playerParent: {fileID: 1723064495}
   CMCam: {fileID: 667662853}
+  WeaponPrefabList:
+  - {fileID: 8888007545945983282, guid: 985fe414931866c4aa141fa4c9e1412b, type: 3}
 --- !u!114 &79005487
 MonoBehaviour:
   m_ObjectHideFlags: 0

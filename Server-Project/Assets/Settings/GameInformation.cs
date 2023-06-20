@@ -24,6 +24,7 @@ public class GameInformation : MonoBehaviour
     public Transform playerParent;
     public float respawnTime;
     public Vector3 deathPosition = new Vector3(0, -50, 0);
+    public List<WeaponScript> WeaponPrefabList = new List<WeaponScript>();
 
     private void Awake()
     {
