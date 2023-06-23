@@ -21,6 +21,9 @@ public class PlayerNetworking : MonoBehaviour
     public bool position;
     public bool rotation;
 
+    [Header("Private information")]
+    public ushort serverId;
+
     private void Start()
     {
         playerInfo = GetComponent<PlayerInfo>();
@@ -37,11 +40,11 @@ public class PlayerNetworking : MonoBehaviour
         message.AddUShort(Id);
         if (position) message.AddVector3(transform.position); else message.AddVector3(Vector3.zero);
         if (rotation) message.AddQuaternion(transform.rotation); else message.AddQuaternion(Quaternion.identity);
-        NetworkManager.Singleton.Server.SendToAll(message);
+        ServerManager.Singleton.GetServer(serverId).Server.SendToAll(message);
     }
 
     private void OnDestroy()
     {
-        NetworkManager.Singleton.playerList.Remove(Id);
+        ServerManager.Singleton.GetServer(serverId).playerList.Remove(Id);
     }
 }

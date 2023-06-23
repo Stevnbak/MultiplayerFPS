@@ -12,38 +12,40 @@ public class MessageHandling : MonoBehaviour
     [MessageHandler((ushort)MessageIds.playerInformation)]
     static void PlayerInformation(ushort fromClientId, Message message)
     {
+        ushort serverId = message.GetUShort();
+        NetworkManager networkManager = ServerManager.Singleton.GetServer(serverId);
         //Set info
-        ushort id = fromClientId;
         string username = message.GetString();
         Vector3 spawnPos = new Vector3(0f, 2f, 0f);
 
         //Tell new player to spawn all current ones
-        foreach (PlayerNetworking otherPlayer in NetworkManager.Singleton.playerList.Values)
+        foreach (PlayerNetworking otherPlayer in networkManager.playerList.Values)
         {
             Message msg = Message.Create(MessageSendMode.Reliable, (ushort)MessageIds.playerJoined);
             msg.AddUShort(otherPlayer.Id);
             msg.AddString(otherPlayer.username);
             msg.AddVector3(otherPlayer.transform.position);
 
-            NetworkManager.Singleton.Server.Send(msg, fromClientId);
+            networkManager.Server.Send(msg, fromClientId);
         }
 
         //Spawn player server side
-        NetworkManager.SpawnPlayer(id, username, spawnPos);
+        NetworkManager.SpawnPlayer(fromClientId, networkManager.Id, username, spawnPos);
 
         //Tell all clients to spawn player
         message = Message.Create(MessageSendMode.Reliable, (ushort)MessageIds.playerJoined);
-        message.AddUShort(id);
+        message.AddUShort(fromClientId);
         message.AddString(username);
         message.AddVector3(spawnPos);
 
-        NetworkManager.Singleton.Server.SendToAll(message);
+        networkManager.Server.SendToAll(message);
     }
     //Get updated position
     [MessageHandler((ushort)MessageIds.playerTransformUpdate)]
-    static void PlayerTransformUpdate(ushort id, Message message)
+    static void PlayerTransformUpdate(ushort fromClientId, Message message)
     {
-        Transform transform = NetworkManager.Singleton.playerList[id].transform;
+        NetworkManager networkManager = ServerManager.Singleton.GetServerFromPlayer(fromClientId);
+        Transform transform = networkManager.playerList[fromClientId].transform;
         Vector3 position = message.GetVector3();
         if (position != Vector3.zero)
             transform.position = position;
@@ -54,17 +56,19 @@ public class MessageHandling : MonoBehaviour
     #endregion
     #region weapons
     [MessageHandler((ushort)MessageIds.weaponFire)]
-    static void WeaponFire(ushort id, Message message)
+    static void WeaponFire(ushort fromClientId, Message message)
     {
-        PlayerNetworking player = NetworkManager.Singleton.playerList[id];
+        NetworkManager networkManager = ServerManager.Singleton.GetServerFromPlayer(fromClientId);
+        PlayerNetworking player = networkManager.playerList[fromClientId];
         Vector3 direction = message.GetVector3();
-        Debug.Log("Player id: " + id);
-        player.CurrentWeapon.Fire(direction, id);
+        Debug.Log("Player id: " + fromClientId);
+        player.CurrentWeapon.Fire(direction, fromClientId);
     }
     [MessageHandler((ushort)MessageIds.weaponUpdate)]
-    static void WeaponUpdate(ushort id, Message message)
+    static void WeaponUpdate(ushort fromClientId, Message message)
     {
-        PlayerNetworking player = NetworkManager.Singleton.playerList[id];
+        NetworkManager networkManager = ServerManager.Singleton.GetServerFromPlayer(fromClientId);
+        PlayerNetworking player = networkManager.playerList[fromClientId];
         ushort[] equippedWeapons = message.GetUShorts();
         ushort selectedWeaponId = message.GetUShort();
         //Change player weapon
@@ -79,10 +83,10 @@ public class MessageHandling : MonoBehaviour
         player.CurrentWeapon = weaponObject.GetComponent<WeaponScript>();
         //Tell all clients too
         message = Message.Create(MessageSendMode.Reliable, (ushort)MessageIds.weaponUpdate);
-        message.AddUShort(id);
+        message.AddUShort(fromClientId);
         message.AddUShorts(equippedWeapons);
         message.AddUShort(selectedWeaponId);
-        NetworkManager.Singleton.Server.SendToAll(message);
+        networkManager.Server.SendToAll(message);
     }
     #endregion
 }

@@ -485,7 +485,7 @@ MonoBehaviour:
   connectUI: {fileID: 16060624}
   usernameField: {fileID: 387985755}
   ipField: {fileID: 2011653192}
-  portField: {fileID: 1739072797}
+  serverIdField: {fileID: 1739072797}
   username: 
   DeathScreen: {fileID: 2082429522}
   HUDScreen: {fileID: 1919802268}
@@ -521,6 +521,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   test: 0
+  Ip: 127.0.0.1
 --- !u!1 &81707700
 GameObject:
   m_ObjectHideFlags: 0
@@ -600,7 +601,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Enter server port...
+  m_text: Enter server id...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2222,7 +2223,7 @@ GameObject:
   - component: {fileID: 1739072798}
   - component: {fileID: 1739072797}
   m_Layer: 5
-  m_Name: InputField - Port
+  m_Name: InputField - Id
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2297,14 +2298,14 @@ MonoBehaviour:
   m_VerticalScrollbarEventHandler: {fileID: 0}
   m_LayoutGroup: {fileID: 0}
   m_ScrollSensitivity: 1
-  m_ContentType: 0
+  m_ContentType: 2
   m_InputType: 0
   m_AsteriskChar: 42
-  m_KeyboardType: 0
+  m_KeyboardType: 4
   m_LineType: 0
   m_HideMobileInput: 0
   m_HideSoftKeyboard: 0
-  m_CharacterValidation: 0
+  m_CharacterValidation: 2
   m_RegexValue: 
   m_GlobalPointSize: 14
   m_CharacterLimit: 0

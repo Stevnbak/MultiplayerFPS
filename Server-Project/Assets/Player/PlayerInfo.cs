@@ -9,12 +9,12 @@ public class PlayerInfo : MonoBehaviour
     public static float maxHealth = 100;
     public bool alive = true;
 
-    private ushort playerId;
+    private PlayerNetworking playerNetworking;
 
     void Start()
     {
         health = maxHealth;
-        playerId = transform.GetComponent<PlayerNetworking>().Id;
+        playerNetworking = GetComponent<PlayerNetworking>();
     }
 
     void Update()
@@ -30,17 +30,17 @@ public class PlayerInfo : MonoBehaviour
     {
         health -= damage;
         Message msg = Message.Create(MessageSendMode.Reliable, (ushort)MessageIds.playerHealthUpdate);
-        msg.AddUShort(playerId);
+        msg.AddUShort(playerNetworking.Id);
         msg.AddFloat(health);
-        NetworkManager.Singleton.Server.SendToAll(msg);
+        ServerManager.Singleton.GetServer(playerNetworking.serverId).Server.SendToAll(msg);
     }
 
     public void Death()
     {
         alive = false;
         Message msg = Message.Create(MessageSendMode.Reliable, (ushort)MessageIds.playerDeath);
-        msg.AddUShort(playerId);
-        NetworkManager.Singleton.Server.SendToAll(msg);
+        msg.AddUShort(playerNetworking.Id);
+        ServerManager.Singleton.GetServer(playerNetworking.serverId).Server.SendToAll(msg);
 
         StartCoroutine(TimedActions.StartTimedAction(5/**30*/, () =>
         {
@@ -54,8 +54,8 @@ public class PlayerInfo : MonoBehaviour
         alive = true;
         transform.position = spawnPosition;
         Message msg = Message.Create(MessageSendMode.Reliable, (ushort)MessageIds.playerRespawn);
-        msg.AddUShort(playerId);
+        msg.AddUShort(playerNetworking.Id);
         msg.AddVector3(spawnPosition);
-        NetworkManager.Singleton.Server.SendToAll(msg);
+        ServerManager.Singleton.GetServer(playerNetworking.serverId).Server.SendToAll(msg);
     }
 }

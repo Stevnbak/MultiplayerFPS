@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
+using Unity.VisualScripting;
 
 public class UIManager : MonoBehaviour
 {
@@ -27,7 +28,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject connectUI;
     [SerializeField] private TMP_InputField usernameField;
     [SerializeField] private TMP_InputField ipField;
-    [SerializeField] private TMP_InputField portField;
+    [SerializeField] private TMP_InputField serverIdField;
 
     [Header("Info")]
     [SerializeField] private string username;
@@ -42,7 +43,7 @@ public class UIManager : MonoBehaviour
         Singleton = this;
         BackToMain();
         ipField.text = "127.0.0.1";
-        portField.text = "2000";
+        serverIdField.text = "0";
     }
 
     public void ConnectClick()
@@ -50,7 +51,14 @@ public class UIManager : MonoBehaviour
         username = usernameField.text;
 
         hideUI();
-        NetworkManager.Singleton.Connect(ipField.text, portField.text);       
+
+        //Ask server to join a game
+        Message message = Message.Create(MessageSendMode.Reliable, MessageIds.joinGame);
+        ushort serverId = (ushort) int.Parse(serverIdField.text);
+        message.AddUShort(serverId);
+        NetworkManager.Singleton.Client.Send(message);
+
+        ///NetworkManager.Singleton.Connect(ipField.text, serverIdField.text);       
     }
 
     public void hideUI()
@@ -64,15 +72,17 @@ public class UIManager : MonoBehaviour
     {
         usernameField.interactable = true;
         ipField.interactable = true;
-        portField.interactable = true;
+        serverIdField.interactable = true;
         connectUI.SetActive(true);
         HUDScreen.SetActive(false);
     }
 
     public void SendName()
     {
+        hideUI();
         Debug.Log("Sending user info to server");
         Message message = Message.Create(MessageSendMode.Reliable, (ushort)MessageIds.playerInformation);
+        message.AddUShort(NetworkManager.Singleton.ConnectedServerId);
         if (usernameField.text == "") usernameField.text = "Guest";
         message.AddString(usernameField.text);
         NetworkManager.Singleton.Client.Send(message);

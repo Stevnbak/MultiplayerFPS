@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameInformation : MonoBehaviour
 {
@@ -21,10 +22,10 @@ public class GameInformation : MonoBehaviour
     }
 
     public GameObject playerPrefab;
-    public Transform playerParent;
     public float respawnTime;
     public Vector3 deathPosition = new Vector3(0, -50, 0);
     public List<WeaponScript> WeaponPrefabList = new List<WeaponScript>();
+    public ushort maxUsersPerLobby = 10;
 
     private void Awake()
     {

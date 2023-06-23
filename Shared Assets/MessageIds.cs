@@ -1,6 +1,8 @@
 public enum MessageIds : ushort
 {
-    playerJoined = 1,
+    joinGame,
+    connectToServer,
+    playerJoined,
     playerInformation,
     playerLeft,
     playerTransformUpdate,

@@ -3,57 +3,28 @@ using Riptide.Utils;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 public class NetworkManager : MonoBehaviour
 {
-    private static NetworkManager _singleton;
-    public static NetworkManager Singleton
-    {
-        get => _singleton;
-        private set
-        {
-            if(_singleton == null)
-                _singleton = value;
-            else if (_singleton != value)
-            {
-                Debug.Log($"{ nameof(NetworkManager)} instance already exists, duplicate destroyed");
-                Destroy(value);
-            }
-        }
-    }
     public Server Server { get; private set; }
-    [SerializeField] private ushort port;
-    [SerializeField] private ushort maxClientCount;
-    public bool active;
+    [SerializeField]
+    public ushort Id { get; private set; }
+    public ushort Port { get; private set; }
     [Header("Network Objects")]
     public Dictionary<ushort, PlayerNetworking> playerList = new Dictionary<ushort, PlayerNetworking>();
+    public Transform playerParent;
 
-    private void Awake()
-    {
-        Singleton = this;
-    }
-
-    private void Start()
-    {
-#if UNITY_EDITOR
-        RiptideLogger.Initialize(Debug.Log, Debug.Log, Debug.LogWarning, Debug.LogError, false);
-#else
-        System.Console.Title = "Server";
-        System.Console.Clear();
-        Application.SetStackTraceLogType(UnityEngine.LogType.Log, StackTraceLogType.None);
-        RiptideLogger.Initialize(Debug.Log, true);
-#endif
-        Host();
-    }
-
-    public void Host()
+    public void Host(ushort port, ushort serverId)
     {
         Debug.Log("Starting server...");
         Server = new Server();
-        Server.Start(port, maxClientCount);
+        Server.Start(port, GameInformation.Singleton.maxUsersPerLobby);
         Server.ClientDisconnected += PlayerLeft;
         Server.ClientConnected += PlayerConnected;
+        Port = port;
+        Id = serverId;
     }
 
     private void FixedUpdate()
@@ -75,20 +46,28 @@ public class NetworkManager : MonoBehaviour
     {
         Message message = Message.Create(MessageSendMode.Reliable, MessageIds.playerLeft);
         message.AddUShort(e.Client.Id);
-        Singleton.Server.SendToAll(message);
+        Server.SendToAll(message);
         Destroy(playerList[e.Client.Id].gameObject);
+        playerList.Remove(e.Client.Id);
+        if(playerList.Count == 0)
+        {
+            Debug.Log($"Match server {Id} closing...");
+            ServerManager.Singleton.CloseServer(Id);
+        }
     }
 
-    public static void SpawnPlayer(ushort id, string username, Vector3 position)
+    public static void SpawnPlayer(ushort playerId, ushort serverId, string username, Vector3 position)
     {
-        Debug.Log($"Spawned player with Id: {id} and Name: {username}");
+        NetworkManager networkManager = ServerManager.Singleton.ActiveServers[serverId];
+        Debug.Log($"Spawned player with Id: {playerId} and Name: {username}");
         PlayerNetworking player;
-        player = Instantiate(GameInformation.Singleton.playerPrefab, position, Quaternion.identity, GameInformation.Singleton.playerParent).GetComponent<PlayerNetworking>();
+        player = Instantiate(GameInformation.Singleton.playerPrefab, position, Quaternion.identity, networkManager.playerParent).GetComponent<PlayerNetworking>();
 
-        player.name = $"Player {id} - {username}";
-        player.Id = id;
+        player.name = $"Player {playerId} - {username}";
+        player.Id = playerId;
+        player.serverId = serverId;
         player.username = username;
 
-        Singleton.playerList.Add(id, player);
+        networkManager.playerList.Add(playerId, player);
     }
 }

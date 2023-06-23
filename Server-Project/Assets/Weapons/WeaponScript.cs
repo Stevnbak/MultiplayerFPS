@@ -8,9 +8,12 @@ public class WeaponScript : MonoBehaviour
     [Header("Editor Settings")]
     public Weapon_Data weaponData;
 
+    private PlayerNetworking playerNetworking;
+
     void Start()
     {
         name = weaponData.weaponName;
+        playerNetworking = GetComponent<PlayerNetworking>();
     }
 
     public void Fire(Vector3 direction, ushort playerId)
@@ -54,6 +57,6 @@ public class WeaponScript : MonoBehaviour
         message.AddUShort(playerId);
         message.AddVector3(shootingPoint);
         message.AddVector3(hitPoint);
-        NetworkManager.Singleton.Server.SendToAll(message);
+       ServerManager.Singleton.GetServer(playerNetworking.serverId).Server.SendToAll(message);
     }
 }

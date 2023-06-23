@@ -9,6 +9,17 @@ using UnityEngine.SocialPlatforms;
 public class MessageHandling : MonoBehaviour
 {
 
+    //Connected to match
+    [MessageHandler((ushort)MessageIds.connectToServer)]
+    static void connectedToMatch(Message message)
+    {
+        Debug.Log("Got a match!");
+        ushort port = message.GetUShort();
+        ushort serverId = message.GetUShort();
+        NetworkManager.Singleton.Client.Disconnect();
+        NetworkManager.Singleton.ConnectedServerId = serverId;
+        NetworkManager.Singleton.Connect(NetworkManager.Singleton.Ip, port.ToString());
+    }
     //A player joined the game
     [MessageHandler((ushort)MessageIds.playerJoined)]
     static void playerJoined(Message message)
