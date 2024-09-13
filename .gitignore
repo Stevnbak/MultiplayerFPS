@@ -68,10 +68,3 @@
 # Temporary auto-generated Android Assets
 */[Aa]ssets/[Ss]treamingAssets/aa.meta
 */[Aa]ssets/[Ss]treamingAssets/aa/*
-
-# Large files
-*/Library/PackageCache/com.unity.burst@1.7.3/.Runtime/libburst-llvm-12.dylib
-*/Library/PackageCache/com.unity.burst@1.7.3/.Runtime/hostmac/lld
-*/Library/ArtifactDB
-*/Library/PackageCache/com.unity.toolchain.win-x86_64-linux-x86_64@2.0.2/data~/payload.tar.7z
-*/Library/PackageCache/com.unity.modules.terrainphysics@1.0.0/package.ModuleCompilationTrigger
